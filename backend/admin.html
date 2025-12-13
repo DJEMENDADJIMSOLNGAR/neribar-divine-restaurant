@@ -7,24 +7,117 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Nouveau style pour la page d'administration */
+    body {
+      background-color: #f3f4f6; /* bg-gray-100 */
+      color: #1f2937; /* text-gray-800 */
+      font-family: 'Inter', sans-serif;
+    }
+
+    header {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+    }
+
+    main h1, main h2 {
+      color: #111827; /* text-gray-900 */
+    }
+
+    section {
+      background-color: #ffffff;
+      border-radius: 0.75rem; /* rounded-xl */
+      padding: 1.5rem; /* p-6 */
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    /* Style des formulaires */
+    form {
+      background-color: #f9fafb; /* bg-gray-50 */
+      border: 1px solid #e5e7eb;
+    }
+
+    input[type="text"],
+    input[type="search"],
+    input[type="password"],
+    textarea,
+    select {
+      background-color: #ffffff;
+      color: #1f2937;
+      border: 1px solid #d1d5db; /* border-gray-300 */
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #004aad; /* primary-blue */
+      box-shadow: 0 0 0 2px rgba(0, 74, 173, 0.2);
+      outline: none;
+    }
+
+    /* Style des boutons */
+    button[type="submit"], .btn-primary {
+      background-color: #004aad; /* primary-blue */
+      color: #ffffff;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      transition: background-color 0.2s;
+    }
+    button[type="submit"]:hover, .btn-primary:hover {
+      background-color: #003a8c;
+    }
+
+    .btn-secondary {
+      background-color: #e5e7eb; /* bg-gray-200 */
+      color: #1f2937;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      transition: background-color 0.2s;
+    }
+    .btn-secondary:hover {
+      background-color: #d1d5db;
+    }
+
+    .btn-danger {
+      background-color: #ef4444; /* bg-red-500 */
+      color: #ffffff;
+    }
+    .btn-danger:hover {
+      background-color: #dc2626; /* bg-red-600 */
+    }
+
+    /* Style des tables */
+    table {
+      background-color: #ffffff;
+    }
+    table thead {
+      background-color: #f9fafb; /* bg-gray-50 */
+      color: #374151; /* text-gray-700 */
+      border-bottom: 2px solid #e5e7eb;
+    }
+    table tbody tr:nth-child(even) {
+      background-color: #f9fafb; /* Lignes alternées */
+    }
+    table tbody tr {
+      border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+    }
+  </style>
 </head>
-<body class="bg-black text-white font-sans">
-  <header class="bg-black shadow-md sticky top-0 z-50 mb-8">
+<body class="font-sans">
+  <header class="shadow-md sticky top-0 z-50 mb-8">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <span class="text-2xl font-bold text-white">Admin KemdeHolo</span>
-      <a href="index.html" class="bg-white hover:bg-opacity-90 text-black font-bold px-4 py-2 rounded-lg transition-colors">Retour au site</a>
+      <span class="text-2xl font-bold text-gray-800">Admin KemdeHolo</span>
+      <a href="index.html" class="btn-secondary px-4 py-2">Retour au site</a>
     </div>
   </header>
   <main class="container mx-auto px-4">
-    <h1 class="text-3xl font-bold text-white mb-6">Gestion du site</h1>
+    <h1 class="text-3xl font-bold mb-6">Gestion du site</h1>
     <section id="blog-section" class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-3"><i class="fas fa-newspaper text-white/70"></i>Articles de blog</h2>
-      <form id="blog-form" class="flex flex-col gap-4 mb-4 bg-black p-4 rounded-lg shadow">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-newspaper text-gray-400"></i>Articles de blog</h2>
+      <form id="blog-form" class="flex flex-col gap-4 mb-4 p-4 rounded-lg">
         <div id="blog-error" class="text-yellow-400 font-bold"></div>
-        <input id="blog-titre" type="text" placeholder="Titre de l'article" required class="w-full px-3 py-2 rounded bg-black text-white border border-white/20 focus:border-white focus:ring-1 focus:ring-white">
-        <textarea id="blog-contenu" placeholder="Contenu de l'article" required rows="5" class="w-full px-3 py-2 rounded bg-black text-white border border-white/20 focus:border-white focus:ring-1 focus:ring-white"></textarea>        <input id="blog-image" type="file" accept="image/*" class="w-full px-3 py-2 rounded bg-black text-white border border-white/20 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-black hover:file:bg-gray-200">
+        <input id="blog-titre" type="text" placeholder="Titre de l'article" required class="w-full px-3 py-2 rounded">
+        <textarea id="blog-contenu" placeholder="Contenu de l'article" required rows="5" class="w-full px-3 py-2 rounded"></textarea>        <input id="blog-image" type="file" accept="image/*" class="w-full px-3 py-2 rounded file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-800 hover:file:bg-gray-300">
         <input id="blog-image-url" type="hidden">
-        <select id="blog-categorie" required class="w-full px-3 py-2 rounded bg-black text-white border border-white/20 focus:border-white focus:ring-1 focus:ring-white">
+        <select id="blog-categorie" required class="w-full px-3 py-2 rounded">
           <option value="">-- Catégorie --</option>
           <option value="Cuisine">Cuisine</option>
           <option value="Tourisme">Tourisme</option>
@@ -32,19 +125,19 @@
         </select>
         <input type="hidden" id="blog-id">
         <div>
-          <button type="submit" id="blog-submit-btn" class="bg-white hover:bg-opacity-90 text-black font-bold px-4 py-2 rounded-lg transition-colors">Ajouter l'article</button>
-          <button type="button" id="blog-cancel-btn" class="hidden ml-4 text-black bg-gray-300 hover:bg-gray-400 font-semibold px-4 py-2 rounded-lg" onclick="annulerModificationBlog()">Annuler</button>
+          <button type="submit" id="blog-submit-btn" class="px-4 py-2">Ajouter l'article</button>
+          <button type="button" id="blog-cancel-btn" class="hidden ml-4 btn-secondary px-4 py-2" onclick="annulerModificationBlog()">Annuler</button>
         </div>
       </form>
-      <input type="search" id="search-blog" onkeyup="filterContent('search-blog', 'blog-list', 'li')" placeholder="Rechercher un article..." class="w-full mb-4 px-3 py-2 rounded bg-black text-white border border-white/20">
+      <input type="search" id="search-blog" onkeyup="filterContent('search-blog', 'blog-list', 'li')" placeholder="Rechercher un article..." class="w-full mb-4 px-3 py-2 rounded">
       <ul id="blog-list" class="mb-8"></ul>
       <div id="blog-pagination" class="pagination-controls"></div>
     </section>
     <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-3"><i class="fas fa-receipt text-white/70"></i>Commandes reçues</h2>
-      <input type="search" id="search-orders" onkeyup="filterContent('search-orders', 'orders-table', 'tr')" placeholder="Rechercher une commande..." class="w-full mb-4 px-3 py-2 rounded bg-black text-white border border-white/20">
-      <table class="w-full bg-black rounded shadow">
-        <thead class="bg-white/10 text-white border-b-2 border-white/30">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-receipt text-gray-400"></i>Commandes reçues</h2>
+      <input type="search" id="search-orders" onkeyup="filterContent('search-orders', 'orders-table', 'tr')" placeholder="Rechercher une commande..." class="w-full mb-4 px-3 py-2 rounded">
+      <table class="w-full rounded shadow">
+        <thead>
           <tr>
             <th class="p-3 text-left">Plat</th>
             <th class="p-3 text-left">Quantité</th>
@@ -61,10 +154,10 @@
       <div id="orders-pagination" class="pagination-controls"></div>
     </section>
     <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-3"><i class="fas fa-inbox text-white/70"></i>Messages de contact reçus</h2>
-      <input type="search" id="search-contacts" onkeyup="filterContent('search-contacts', 'contacts-table', 'tr')" placeholder="Rechercher un message..." class="w-full mb-4 px-3 py-2 rounded bg-black text-white border border-white/20">
-      <table class="w-full bg-black rounded shadow">
-        <thead class="bg-white/10 text-white border-b-2 border-white/30">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-inbox text-gray-400"></i>Messages de contact reçus</h2>
+      <input type="search" id="search-contacts" onkeyup="filterContent('search-contacts', 'contacts-table', 'tr')" placeholder="Rechercher un message..." class="w-full mb-4 px-3 py-2 rounded">
+      <table class="w-full rounded shadow">
+        <thead>
           <tr>
             <th class="p-3 text-left">Prénom</th>
             <th class="p-3 text-left">Nom</th>
@@ -80,10 +173,10 @@
       <div id="contacts-pagination" class="pagination-controls"></div>
     </section>
     <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-3"><i class="fas fa-comments text-white/70"></i>Commentaires du blog</h2>
-      <input type="search" id="search-comments" onkeyup="filterContent('search-comments', 'comments-table', 'tr')" placeholder="Rechercher un commentaire..." class="w-full mb-4 px-3 py-2 rounded bg-black text-white border border-white/20">
-      <table class="w-full bg-black rounded shadow">
-        <thead class="bg-white/10 text-white border-b-2 border-white/30">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-comments text-gray-400"></i>Commentaires du blog</h2>
+      <input type="search" id="search-comments" onkeyup="filterContent('search-comments', 'comments-table', 'tr')" placeholder="Rechercher un commentaire..." class="w-full mb-4 px-3 py-2 rounded">
+      <table class="w-full rounded shadow">
+        <thead>
           <tr>
             <th class="p-3 text-left">Nom</th>
             <th class="p-3 text-left">Article</th>
@@ -97,10 +190,10 @@
       <div id="comments-pagination" a="pagination-controls"></div>
     </section>
     <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-3"><i class="fas fa-at text-white/70"></i>Abonnés à la newsletter</h2>
-      <input type="search" id="search-subscribers" onkeyup="filterContent('search-subscribers', 'subscribers-table', 'tr')" placeholder="Rechercher un email..." class="w-full mb-4 px-3 py-2 rounded bg-black text-white border border-white/20">
-      <table class="w-full bg-black rounded shadow">
-        <thead class="bg-white/10 text-white border-b-2 border-white/30">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-at text-gray-400"></i>Abonnés à la newsletter</h2>
+      <input type="search" id="search-subscribers" onkeyup="filterContent('search-subscribers', 'subscribers-table', 'tr')" placeholder="Rechercher un email..." class="w-full mb-4 px-3 py-2 rounded">
+      <table class="w-full rounded shadow">
+        <thead>
           <tr>
             <th class="p-3 text-left">Email</th>
             <th class="p-3 text-left">Date d'abonnement</th>
@@ -112,10 +205,10 @@
       <div id="subscribers-pagination" class="pagination-controls"></div>
     </section>
     <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-3"><i class="fas fa-bed text-white/70"></i>Réservations de chambres</h2>
-      <input type="search" id="search-reservations" onkeyup="filterContent('search-reservations', 'reservations-table', 'tr')" placeholder="Rechercher une réservation..." class="w-full mb-4 px-3 py-2 rounded bg-black text-white border border-white/20">
-      <table class="w-full bg-black rounded shadow text-sm">
-        <thead class="bg-white/10 text-white border-b-2 border-white/30">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-bed text-gray-400"></i>Réservations de chambres</h2>
+      <input type="search" id="search-reservations" onkeyup="filterContent('search-reservations', 'reservations-table', 'tr')" placeholder="Rechercher une réservation..." class="w-full mb-4 px-3 py-2 rounded">
+      <table class="w-full rounded shadow text-sm">
+        <thead>
           <tr>
             <th class="p-3 text-left">Client</th>
             <th class="p-3 text-left">Chambre</th>
@@ -134,22 +227,22 @@
       <div id="reservations-pagination" class="pagination-controls"></div>
     </section>
     <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-3"><i class="fas fa-users text-white/70"></i>Gestion des Membres de l'Équipe</h2>
-      <form id="team-form" class="flex flex-col gap-4 mb-4 bg-black p-4 rounded-lg shadow">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-users text-gray-400"></i>Gestion des Membres de l'Équipe</h2>
+      <form id="team-form" class="flex flex-col gap-4 mb-4 p-4 rounded-lg">
         <input type="hidden" id="team-id">
         <input type="hidden" id="team-image-url">
-        <input id="team-nom" type="text" placeholder="Nom du membre" required class="w-full px-3 py-2 rounded bg-black text-white border border-white/20">
-        <input id="team-role" type="text" placeholder="Rôle" required class="w-full px-3 py-2 rounded bg-black text-white border border-white/20">
-        <textarea id="team-description" placeholder="Description" rows="2" class="w-full px-3 py-2 rounded bg-black text-white border border-white/20"></textarea>
-        <input id="team-image" type="file" accept="image/*" class="w-full px-3 py-2 rounded bg-black text-white border border-white/20 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-black hover:file:bg-gray-200">
+        <input id="team-nom" type="text" placeholder="Nom du membre" required class="w-full px-3 py-2 rounded">
+        <input id="team-role" type="text" placeholder="Rôle" required class="w-full px-3 py-2 rounded">
+        <textarea id="team-description" placeholder="Description" rows="2" class="w-full px-3 py-2 rounded"></textarea>
+        <input id="team-image" type="file" accept="image/*" class="w-full px-3 py-2 rounded file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-800 hover:file:bg-gray-300">
         <div>
-          <button type="submit" id="team-submit-btn" class="bg-white hover:bg-opacity-90 text-black font-bold px-4 py-2 rounded-lg transition-colors">Ajouter</button>
-          <button type="button" id="team-cancel-btn" class="hidden ml-4 text-black bg-gray-300 hover:bg-gray-400 font-semibold px-4 py-2 rounded-lg" onclick="annulerModificationEquipe()">Annuler</button>
+          <button type="submit" id="team-submit-btn" class="px-4 py-2">Ajouter</button>
+          <button type="button" id="team-cancel-btn" class="hidden ml-4 btn-secondary px-4 py-2" onclick="annulerModificationEquipe()">Annuler</button>
         </div>
       </form>
-      <input type="search" id="search-team" onkeyup="filterContent('search-team', 'team-table', 'tr')" placeholder="Rechercher un membre..." class="w-full mb-4 px-3 py-2 rounded bg-black text-white border border-white/20">
-      <table class="w-full bg-black rounded shadow">
-        <thead class="bg-white/10 text-white border-b-2 border-white/30">
+      <input type="search" id="search-team" onkeyup="filterContent('search-team', 'team-table', 'tr')" placeholder="Rechercher un membre..." class="w-full mb-4 px-3 py-2 rounded">
+      <table class="w-full rounded shadow">
+        <thead>
           <tr>
             <th class="p-3 text-left">Nom</th>
             <th class="p-3 text-left">Rôle</th>
@@ -161,20 +254,20 @@
       <div id="team-pagination" class="pagination-controls"></div>
     </section>
     <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-3"><i class="fas fa-star text-white/70"></i>Gestion des Témoignages</h2>
-      <form id="testimonial-form" class="flex flex-col gap-4 mb-4 bg-black p-4 rounded-lg shadow">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-star text-gray-400"></i>Gestion des Témoignages</h2>
+      <form id="testimonial-form" class="flex flex-col gap-4 mb-4 p-4 rounded-lg">
         <input type="hidden" id="testimonial-id">
         <input type="hidden" id="testimonial-image-url">
-        <input id="testimonial-name" type="text" placeholder="Nom du client" required class="w-full px-3 py-2 rounded bg-black text-white border border-white/20">
-        <select id="testimonial-category" required class="w-full px-3 py-2 rounded bg-black text-white border border-white/20">
+        <input id="testimonial-name" type="text" placeholder="Nom du client" required class="w-full px-3 py-2 rounded">
+        <select id="testimonial-category" required class="w-full px-3 py-2 rounded">
           <option value="">-- Catégorie du témoignage --</option>
           <option value="Restaurant">Restaurant</option>
           <option value="Hebergement">Hébergement</option>
           <option value="Formation">Formation</option>
           <option value="Blanchisserie">Blanchisserie</option>
         </select>
-        <textarea id="testimonial-quote" placeholder="Citation du client" required rows="3" class="w-full px-3 py-2 rounded bg-black text-white border border-white/20"></textarea>        <input id="testimonial-image" type="file" accept="image/*" class="w-full px-3 py-2 rounded bg-black text-white border border-white/20 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-black hover:file:bg-gray-200">
-        <select id="testimonial-rating" required class="w-full px-3 py-2 rounded bg-black text-white border border-white/20">
+        <textarea id="testimonial-quote" placeholder="Citation du client" required rows="3" class="w-full px-3 py-2 rounded"></textarea>        <input id="testimonial-image" type="file" accept="image/*" class="w-full px-3 py-2 rounded file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-800 hover:file:bg-gray-300">
+        <select id="testimonial-rating" required class="w-full px-3 py-2 rounded">
           <option value="">-- Note --</option>
           <option value="5">5 étoiles</option>
           <option value="4">4 étoiles</option>
@@ -182,18 +275,18 @@
           <option value="2">2 étoiles</option>
           <option value="1">1 étoile</option>
         </select>
-        <select id="testimonial-status" class="w-full px-3 py-2 rounded bg-black text-white border border-white/20">
+        <select id="testimonial-status" class="w-full px-3 py-2 rounded">
           <option value="approved">Approuvé</option>
           <option value="pending">En attente</option>
         </select>
         <div>
-          <button type="submit" id="testimonial-submit-btn" class="bg-white hover:bg-opacity-90 text-black font-bold px-4 py-2 rounded-lg transition-colors">Ajouter le témoignage</button>
-          <button type="button" id="testimonial-cancel-btn" class="hidden ml-4 text-black bg-gray-300 hover:bg-gray-400 font-semibold px-4 py-2 rounded-lg" onclick="annulerModificationTestimonial()">Annuler</button>
+          <button type="submit" id="testimonial-submit-btn" class="px-4 py-2">Ajouter le témoignage</button>
+          <button type="button" id="testimonial-cancel-btn" class="hidden ml-4 btn-secondary px-4 py-2" onclick="annulerModificationTestimonial()">Annuler</button>
         </div>
       </form>
-      <input type="search" id="search-testimonials" onkeyup="filterContent('search-testimonials', 'testimonial-table', 'tr')" placeholder="Rechercher un témoignage..." class="w-full mb-4 px-3 py-2 rounded bg-black text-white border border-white/20">
-      <table class="w-full bg-black rounded shadow">
-        <thead class="bg-white/10 text-white border-b-2 border-white/30">
+      <input type="search" id="search-testimonials" onkeyup="filterContent('search-testimonials', 'testimonial-table', 'tr')" placeholder="Rechercher un témoignage..." class="w-full mb-4 px-3 py-2 rounded">
+      <table class="w-full rounded shadow">
+        <thead>
           <tr>
             <th class="p-3 text-left">Nom</th>
             <th class="p-3 text-left">Citation</th>
@@ -210,10 +303,10 @@
       <div id="testimonial-pagination" class="pagination-controls"></div>
     </section>
        <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-3"><i class="fas fa-graduation-cap text-white/70"></i>Inscriptions à la formation</h2>
-      <input type="search" id="search-formation-registrations" onkeyup="filterContent('search-formation-registrations', 'formation-registrations-table', 'tr')" placeholder="Rechercher une inscription..." class="w-full mb-4 px-3 py-2 rounded bg-black text-white border border-white/20">
-      <table class="w-full bg-black rounded shadow">
-        <thead class="bg-white/10 text-white border-b-2 border-white/30">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fas fa-graduation-cap text-gray-400"></i>Inscriptions à la formation</h2>
+      <input type="search" id="search-formation-registrations" onkeyup="filterContent('search-formation-registrations', 'formation-registrations-table', 'tr')" placeholder="Rechercher une inscription..." class="w-full mb-4 px-3 py-2 rounded">
+      <table class="w-full rounded shadow">
+        <thead>
           <tr>
             <th class="p-3 text-left">Nom</th>
             <th class="p-3 text-left">Email</th>
@@ -345,14 +438,12 @@
     function renderBlog() {
         const ul = document.getElementById('blog-list');
         const paginatedData = getPaginatedData('blog');
-        if (!paginatedData || paginatedData.length === 0) {
-          ul.innerHTML = '<li class="text-gray-400">Aucun article de blog trouvé.</li>';
-        } else {
+        if (paginatedData && paginatedData.length > 0) {
           ul.innerHTML = paginatedData.map(a => `
-            <li class="mb-4 p-4 bg-black rounded-lg shadow border border-white/10 flex justify-between items-start" id="article-${a.id}">
+            <li class="mb-4 p-4 bg-gray-50 rounded-lg shadow-sm border flex justify-between items-start" id="article-${a.id}">
                 <div>
-                    <h3 class="text-xl font-bold text-white">${a.titre}</h3>
-                    <p class="text-sm text-white/50">Catégorie: ${a.categorie || 'Non classé'} | Publié le: ${new Date(a.date || a.createdAt).toLocaleDateString()}</p>
+                    <h3 class="text-xl font-bold">${a.titre}</h3>
+                    <p class="text-sm text-gray-500">Catégorie: ${a.categorie || 'Non classé'} | Publié le: ${new Date(a.date || a.createdAt).toLocaleDateString()}</p>
                     <p class="mt-2">${(a.contenu || '').substring(0, 150)}...</p>
                 </div>
                 <div class="flex-shrink-0 ml-4">
@@ -361,6 +452,8 @@
                 </div>
             </li>
           `).join('');
+        } else {
+          ul.innerHTML = '<li class="text-gray-500">Aucun article de blog trouvé.</li>';
         }
         renderPaginationControls('blog', pageState.blog.data.length);
     }
@@ -471,7 +564,7 @@
 
       if (paginatedData && paginatedData.length > 0) {
         tbody.innerHTML = paginatedData.map((c, index) => `
-          <tr class="border-b border-white/10 hover:bg-white/5 ${index % 2 === 0 ? 'bg-black' : 'bg-white/5'}">
+          <tr>
             <td class="p-3">${c.prenom || ''}</td>
             <td class="p-3">${c.nom}</td>
             <td class="p-3">${c.email}</td>
@@ -506,7 +599,7 @@
       const paginatedData = getPaginatedData('subscribers');
       if (paginatedData && paginatedData.length > 0) {
         tbody.innerHTML = paginatedData.map((s, index) => `
-          <tr class="border-b border-white/10 hover:bg-white/5 ${index % 2 === 0 ? 'bg-black' : 'bg-white/5'}">
+          <tr>
             <td class="p-3">${s.email}</td>
             <td class="p-3">${new Date(s.date).toLocaleString()}</td>
             <td class="p-3"><button onclick="supprimerAbonne(${s.id})" class="bg-white text-black px-3 py-1 rounded-md text-sm hover:bg-opacity-90 transition-colors font-bold">Supprimer</button></td>
@@ -542,9 +635,9 @@
         const paginatedData = getPaginatedData('comments');
         if (paginatedData && paginatedData.length > 0) {
             tbody.innerHTML = paginatedData.map((c, index) => `
-                  <tr class="border-b border-white/10 hover:bg-white/5 ${index % 2 === 0 ? 'bg-black' : 'bg-white/5'}">
+                  <tr>
                       <td class="p-3">${c.name || 'Anonyme'}</td>
-                      <td class="p-3">${c.Blog ? `<a href="blog-article.html?id=${c.Blog.id}" target="_blank" class="text-white/70 hover:underline">${c.Blog.titre.substring(0, 30)}...</a>` : 'Article supprimé'}</td>
+                      <td class="p-3">${c.Blog ? `<a href="blog-article.html?id=${c.Blog.id}" target="_blank" class="text-blue-600 hover:underline">${c.Blog.titre.substring(0, 30)}...</a>` : 'Article supprimé'}</td>
                       <td class="p-3">${c.text || ''}</td>
                       <td class="p-3">${new Date(c.date).toLocaleString()}</td>
                       <td class="p-3"><button onclick="supprimerCommentaire(${c.id})" class="bg-white text-black px-3 py-1 rounded-md text-sm hover:bg-opacity-90 transition-colors font-bold">Supprimer</button></td>
@@ -585,15 +678,15 @@
         tbody.innerHTML = paginatedData.map((r, index) => {
           const statusColor = r.status === 'Confirmée' ? 'text-green-400' : (r.status === 'Annulée' ? 'text-gray-500' : 'text-yellow-400');
           return `
-            <tr class="border-b border-white/10 hover:bg-white/5 ${index % 2 === 0 ? 'bg-black' : 'bg-white/5'}">
+            <tr>
               <td class="p-3"><strong>${r.customerName}</strong><br>${r.customerEmail}<br>${r.customerPhone || ''}</td>
               <td class="p-3">${r.roomType} (${r.adults} ad.)</td>
               <td class="p-3">${new Date(r.arrivalDate).toLocaleDateString()}</td>
               <td class="p-3">${new Date(r.departureDate).toLocaleDateString()}</td>
               <td class="p-3 text-xs">${r.specialRequests || 'Aucune'}</td>
               <td class="p-3 text-xs">${new Date(r.createdAt).toLocaleString()}</td>
-              <td class="p-3 font-bold ${statusColor}">
-                <select onchange="changerStatutReservation(${r.id}, this.value)" class="p-1 border rounded text-sm bg-black border-white/20 text-white">
+              <td class="p-3 font-bold">
+                <select onchange="changerStatutReservation(${r.id}, this.value)" class="p-1 border rounded text-sm ${statusColor}">
                     <option value="En attente" ${r.status === 'En attente' ? 'selected' : ''}>En attente</option>
                     <option value="Confirmée" ${r.status === 'Confirmée' ? 'selected' : ''}>Confirmée</option>
                     <option value="Annulée" ${r.status === 'Annulée' ? 'selected' : ''}>Annulée</option>
@@ -648,7 +741,7 @@
         tbody.innerHTML = paginatedData.map((order, index) => {
           const statusColor = order.status === 'Terminée' ? 'text-green-400' : (order.status === 'Annulée' ? 'text-gray-500' : 'text-yellow-400');
           return `
-            <tr class="border-b border-white/10 hover:bg-white/5 ${index % 2 === 0 ? 'bg-black' : 'bg-white/5'}">
+            <tr>
               <td class="p-3">${order.itemName || 'N/A'}</td>
               <td class="p-3">${order.quantity || 1}</td>
               <td class="p-3">${order.customerName || 'N/A'}</td>
@@ -656,7 +749,7 @@
               <td class="p-3">${new Date(order.createdAt).toLocaleString('fr-FR')}</td>
               <td class="p-3">
                 <div class="flex items-center gap-2">
-                  <select onchange="changerStatutCommande(${order.id}, this.value)" class="p-1 border rounded text-sm bg-black border-white/20 text-white">
+                  <select onchange="changerStatutCommande(${order.id}, this.value)" class="p-1 border rounded text-sm ${statusColor}">
                       <option value="En attente" ${order.status === 'En attente' ? 'selected' : ''}>En attente</option>
                       <option value="Terminée" ${order.status === 'Terminée' ? 'selected' : ''}>Terminée</option>
                       <option value="Annulée" ${order.status === 'Annulée' ? 'selected' : ''}>Annulée</option>
@@ -696,8 +789,8 @@
     function renderEquipe() {
         const tbody = document.getElementById('team-table');
         const paginatedData = getPaginatedData('team');
-        tbody.innerHTML = paginatedData.map((m, index) => `
-          <tr class="border-b border-white/10 hover:bg-white/5 ${index % 2 === 0 ? 'bg-black' : 'bg-white/5'}">
+        tbody.innerHTML = paginatedData.map((m) => `
+          <tr>
             <td class="p-3">${m.nom}</td>
             <td class="p-3">${m.role}</td>
             <td class="p-3">
@@ -776,8 +869,8 @@
     function renderTestimonials() {
         const tbody = document.getElementById('testimonial-table');
         const paginatedData = getPaginatedData('testimonials');
-        tbody.innerHTML = paginatedData.map((t, index) => `
-          <tr class="border-b border-white/10 hover:bg-white/5 ${index % 2 === 0 ? 'bg-black' : 'bg-white/5'}">
+        tbody.innerHTML = paginatedData.map((t) => `
+          <tr>
             <td class="p-3">${t.name}</td>
             <td class="p-3">${t.quote.substring(0, 50)}...</td>
             <td class="p-3">${t.rating || 'N/A'} ★</td>
@@ -872,7 +965,7 @@
        // --- Gestion des Inscriptions à la Formation ---
     async function chargerFormationRegistrations() {
       try {
-        const res = await fetch('/admin/formation-registrations', { headers: { 'Authorization': getAdminToken() } });
+        const res = await fetch('/admin/formation-inscriptions', { headers: { 'Authorization': getAdminToken() } });
         if (res.status === 403) { window.location.href = 'admin-login.html'; return; }
         pageState.formationRegistrations.data = await res.json();
         pageState.formationRegistrations.currentPage = 1;
@@ -888,7 +981,7 @@
       const paginatedData = getPaginatedData('formationRegistrations');
 
       tbody.innerHTML = paginatedData.map(reg => `
-        <tr class="border-b border-white/10 hover:bg-white/5">
+        <tr>
           <td class="p-3">${reg.nom}</td>
           <td class="p-3">${reg.email}</td>
           <td class="p-3">${reg.telephone}</td>

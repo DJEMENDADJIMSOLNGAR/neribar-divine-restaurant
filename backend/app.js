@@ -1,4 +1,4 @@
-const { sequelize, Subscriber, Notification, Blog, Contact, Menu, Comment, Hebergement, Formation, Blanchisserie, Team, Testimonial, Order, Reservation } = require('./models');
+const { sequelize, Subscriber, Notification, Blog, Contact, Menu, Comment, Hebergement, Formation, Blanchisserie, Team, Testimonial, Order, Reservation, FormationInscription } = require('./models');
 const { sendReservationConfirmation } = require('./mailer');
 
 // Backend principal pour KemdeHolo
@@ -698,9 +698,16 @@ app.delete('/admin/reservations/:id', checkAdminAuth, async (req, res) => {
 // --- API Publique pour les réservations ---
 app.post('/api/reservations', async (req, res) => {
   try {
-    const { roomType, arrivalDate, departureDate, adults, customerName, customerEmail, customerPhone, specialRequests } = req.body;
+    const { roomType, arrivalDate, departureDate, adults, customerName, customerEmail, customerPhone, specialRequests } = req.body; // customerPhone est déjà là, parfait !
     if (!roomType || !arrivalDate || !departureDate || !adults || !customerName || !customerEmail) {
       return res.status(400).json({ error: 'Tous les champs obligatoires doivent être remplis.' });
+    }
+
+    // Validation de la date
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // On met l'heure à minuit pour comparer uniquement les jours
+    if (new Date(arrivalDate) < today) {
+      return res.status(400).json({ error: "La date d'arrivée ne peut pas être dans le passé." });
     }
     const reservation = await Reservation.create({
       roomType,
@@ -709,7 +716,7 @@ app.post('/api/reservations', async (req, res) => {
       adults,
       customerName,
       customerEmail,
-      customerPhone,
+      customerPhone, // On s'assure qu'il est bien inclus
       specialRequests,
       status: 'En attente'
     });
@@ -830,6 +837,32 @@ app.post('/api/orders', async (req, res) => {
  *         description: Commande créée avec succès.
  */
 
+// --- Gestion des Inscriptions aux Formations (admin) ---
+app.get('/admin/formation-inscriptions', checkAdminAuth, async (req, res) => {
+  try {
+    // On suppose que le modèle pour les inscriptions s'appelle 'FormationInscription'
+    // et qu'il est importé au début du fichier.
+    // Si le modèle a un autre nom, il faudra l'ajuster ici.
+    const inscriptions = await sequelize.models.FormationInscription.findAll({ order: [['createdAt', 'DESC']] });
+    res.json(inscriptions);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- API Publique pour les inscriptions aux formations ---
+app.post('/api/formation-inscriptions', async (req, res) => {
+  try {
+    const { name, email, phone, formationName } = req.body;
+    if (!name || !email || !formationName) {
+      return res.status(400).json({ error: 'Nom, email et nom de la formation sont requis.' });
+    }
+    const inscription = await sequelize.models.FormationInscription.create({ nom: name, email, telephone: phone, formation: formationName });
+    res.status(201).json({ success: true, inscription });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
 // Route GET pour afficher toutes les notifications
 app.get('/notifications', async (req, res) => {
   try {
@@ -906,66 +939,7 @@ async function startServer() {
     await sequelize.sync({ alter: true });
     console.log('Modèles synchronisés');
 
-    // Seed the database
-    const menuCount = await Menu.count();
-    if (menuCount === 0) {
-      console.log('La table Menu est vide, ajout des plats de base...');
-      await Menu.bulkCreate([
-        // Volailles
-        { nom: '½ Poulet braisé', prix: 3000, categorie: 'Dîner' },
-        { nom: '½ Poulet grillé', prix: 3000, categorie: 'Dîner' },
-        { nom: '½ Poulet pané', prix: 3000, categorie: 'Dîner' },
-        { nom: '½ Poulet DG', prix: 3500, categorie: 'Dîner' },
-        { nom: '½ Poulet sauce tomate', prix: 3000, categorie: 'Dîner' },
-        { nom: '½ Poulet sauce gombo', prix: 3000, categorie: 'Dîner' },
-        { nom: '½ Poulet sauce pistache', prix: 3000, categorie: 'Dîner' },
-        { nom: '½ Poulet sauce jaune', prix: 3000, categorie: 'Dîner' },
-        // Poissons
-        { nom: 'Carpe braisée', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Carpe grillée', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Carpe panée', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Carpe DG', prix: 3500, categorie: 'Dîner' },
-        { nom: 'Carpe sauce tomate', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Carpe sauce gombo', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Carpe sauce pistache', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Carpe sauce jaune', prix: 3000, categorie: 'Dîner' },
-        // Viandes
-        { nom: 'Viande braisée', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Viande grillée', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Viande panée', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Viande DG', prix: 3500, categorie: 'Dîner' },
-        { nom: 'Viande sauce tomate', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Viande sauce gombo', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Viande sauce pistache', prix: 3000, categorie: 'Dîner' },
-        { nom: 'Viande sauce jaune', prix: 3000, categorie: 'Dîner' },
-        // Pâtes et Riz
-        { nom: 'Spaghetti nature', prix: 1000, categorie: 'Déjeuner' },
-        { nom: 'Spaghetti sauté', prix: 1500, categorie: 'Déjeuner' },
-        { nom: 'Spaghetti bolognaise', prix: 2000, categorie: 'Déjeuner' },
-        { nom: 'Riz nature', prix: 1000, categorie: 'Déjeuner' },
-        { nom: 'Riz sauté', prix: 1500, categorie: 'Déjeuner' },
-        { nom: 'Riz cantonais', prix: 2000, categorie: 'Déjeuner' },
-        // Sauces
-        { nom: 'Sauce tomate', prix: 300, categorie: 'Déjeuner' },
-        { nom: 'Sauce gombo', prix: 300, categorie: 'Déjeuner' },
-        { nom: 'Sauce pistache', prix: 300, categorie: 'Déjeuner' },
-        { nom: 'Sauce jaune', prix: 300, categorie: 'Déjeuner' },
-        // Desserts
-        { nom: 'Glace maison', prix: 1000, categorie: 'Desserts' },
-        { nom: 'Yaourt maison', prix: 1000, categorie: 'Desserts' },
-        { nom: 'Crêpes au chocolat', prix: 1000, categorie: 'Desserts' },
-        { nom: 'Coupe Danone', prix: 1500, categorie: 'Desserts' },
-        { nom: 'Coupe yaourt', prix: 1500, categorie: 'Desserts' },
-        { nom: 'Coupe chocolat', prix: 1500, categorie: 'Desserts' },
-        { nom: 'Coupe vanille', prix: 1500, categorie: 'Desserts' },
-        { nom: 'Coupe fraise', prix: 1500, categorie: 'Desserts' },
-        { nom: 'Coupe caramel', prix: 1500, categorie: 'Desserts' },
-        { nom: 'Coupe ananas', prix: 1500, categorie: 'Desserts' },
-        { nom: 'Coupe cocktail', prix: 1500, categorie: 'Desserts' },
-        { nom: 'Coupe fruit', prix: 1500, categorie: 'Desserts' },
-        { nom: 'Coupe nature', prix: 1500, categorie: 'Desserts' },
-      ]);
-    }
+   
 
     const hebergementCount = await Hebergement.count();
     if (hebergementCount === 0) {

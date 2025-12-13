@@ -6,7 +6,37 @@
     <title>Blog - KemdeHolo</title>    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<style>
+    /* Styles pour le Skeleton Loader */
+    .skeleton-card {
+        background-color: #fff;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 1.5rem;
+    }
+    .skeleton {
+        background-color: #e0e0e0;
+        border-radius: 0.25rem;
+        animation: shimmer 1.5s infinite linear;
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+    }
+    .skeleton-image { height: 14rem; margin-bottom: 1.5rem; }
+    .skeleton-line { height: 1rem; margin-bottom: 0.75rem; }
+    .skeleton-line-short { width: 60%; }
+    @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+</style>
 <body class="font-sans">
+    <!-- Animation de chargement (Preloader) -->
+    <div id="loader-container" class="loader-container">
+        <!-- REMPLACEZ par le chemin de votre logo -->
+        <img src="images/logo.png" alt="Chargement..." class="preloader-logo">
+    </div>
+
     <!-- Navigation -->
     <div id="header-placeholder"></div>
 
@@ -16,8 +46,13 @@
     <section class="py-16 px-4 scroll-reveal">
         <div class="container mx-auto">
             <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Les articles seront injectés ici -->
-                <div class="text-center text-gray-500 col-span-full">Chargement des articles...</div>
+                <!-- Squelettes de chargement -->
+                <div class="skeleton-card"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line skeleton-line-short"></div></div>
+                <div class="skeleton-card"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line skeleton-line-short"></div></div>
+                <div class="skeleton-card"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line skeleton-line-short"></div></div>
+                <div class="skeleton-card hidden md:block"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line skeleton-line-short"></div></div>
+                <div class="skeleton-card hidden lg:block"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line skeleton-line-short"></div></div>
+                <div class="skeleton-card hidden lg:block"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line skeleton-line-short"></div></div>
             </div>
         </div>
     </section>

@@ -33,6 +33,7 @@ db.Order = require('./order')(sequelize);
 db.Team = require('./team')(sequelize);
 db.Testimonial = require('./testimonial')(sequelize);
 db.Reservation = require('./reservation')(sequelize);
+db.FormationInscription = require('./formationinscription')(sequelize, Sequelize.DataTypes);
 
 // Définir les associations ici
 db.Blog.hasMany(db.Comment, { as: 'Comments', foreignKey: 'blogId', onDelete: 'CASCADE' });

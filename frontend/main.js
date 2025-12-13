@@ -1,3 +1,12 @@
+// --- Gestion de l'animation de chargement (Preloader) ---
+window.addEventListener('load', () => {
+    const loaderContainer = document.getElementById('loader-container');
+    if (loaderContainer) {
+        // Ajoute la classe pour déclencher l'animation de disparition
+        loaderContainer.classList.add('loader-hidden');
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const headerPlaceholder = document.getElementById('header-placeholder');
     const footerPlaceholder = document.querySelector('footer[id="main-footer"]');
@@ -76,8 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/1449775/pexels-photo-1449775.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
                     </div>
                     <div class="hero-content absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                        <h1 class="text-4xl md:text-5xl font-bold mb-6" data-translate-key="home_hero_title">Bienvenue chez KemdeHolo</h1>
-                        <p class="text-xl mb-8" data-translate-key="home_hero_subtitle">Découvrez l'authenticité de l'hospitalité sahélienne</p>
+                        <h1 class="text-5xl md:text-6xl font-bold mb-6" data-translate-key="home_hero_title">Bienvenue chez KemdeHolo</h1>
+                        <p class="text-xl mb-8 text-white" data-translate-key="home_hero_subtitle">Découvrez l'authenticité de l'hospitalité sahélienne</p>
                         <a href="contact.html" class="btn-primary" data-translate-key="home_hero_button">Nous contacter</a>
                     </div>
                 `;
@@ -102,24 +111,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initializeComponents();
 
-    // --- Animation au défilement (Scroll Reveal) ---
-    const elementsToReveal = document.querySelectorAll(".scroll-reveal");
-    if (elementsToReveal.length > 0) {
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            elementsToReveal.forEach((el, index) => {
-                const elementTop = el.getBoundingClientRect().top;
-                // L'élément devient visible un peu avant d'atteindre le bas de l'écran
-                if (elementTop < windowHeight - 80) { 
-                    // Ajout d'un délai pour un effet d'enchaînement subtil
-                    setTimeout(() => {
-                        el.classList.add("visible");
-                    }, 100 * (index % 5)); // Décalage basé sur l'index de l'élément
+    // --- Animation au défilement (Scroll Reveal avec IntersectionObserver) ---
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // L'élément est visible, on retire les transformations pour lancer l'animation
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target); // On arrête d'observer l'élément une fois animé
                 }
             });
-        };
-        window.addEventListener("scroll", revealOnScroll);
-        revealOnScroll(); // Révéler les éléments déjà visibles au chargement
+        }, {
+            threshold: 0.1
+        }); // L'animation se déclenche quand 10% de l'élément est visible
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
     }
 
     // --- Animation des compteurs ---
@@ -159,6 +169,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { threshold: 0.5 });
 
         counters.forEach(counter => observer.observe(counter));
+    }
+
+    // --- Animation pour les cartes de service ---
+    const serviceCards = document.querySelectorAll('.service-card-animated');
+    if (serviceCards.length > 0) {
+        const serviceCardObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Applique un délai progressif pour un effet de cascade
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100); // 100ms de décalage entre chaque carte
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        serviceCards.forEach(card => {
+            serviceCardObserver.observe(card);
+        });
     }
 
     // --- Gestion des Témoignages (Slider et Modale) ---
@@ -305,4 +335,230 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Gestion de la modale de réservation ---
+    const reservationModal = document.getElementById('reservation-modal');
+    const bookButtons = document.querySelectorAll('.btn-book-room'); // Boutons "Réserver" sur les cartes de chambre
+    const closeReservationModalBtn = document.getElementById('close-reservation-modal-btn');
+    const arrivalDateInput = document.getElementById('arrival-date');
+    const departureDateInput = document.getElementById('departure-date');
+    const roomTypeSelect = document.getElementById('room-type-select');
+
+    if (reservationModal && bookButtons.length > 0 && closeReservationModalBtn) {
+        // Fonction pour charger les types de chambres dans le select
+        const populateRoomTypes = async () => {
+            if (!roomTypeSelect) return;
+            try {
+                const response = await fetch('/api/hebergement');
+                if (!response.ok) throw new Error('Impossible de charger les types de chambres.');
+                const rooms = await response.json();
+                roomTypeSelect.innerHTML = '<option value="">Sélectionnez un type de chambre</option>';
+                rooms.forEach(room => {
+                    roomTypeSelect.innerHTML += `<option value="${room.type}">${room.type}</option>`;
+                });
+            } catch (error) {
+                console.error(error);
+                roomTypeSelect.innerHTML = `<option value="">Erreur de chargement</option>`;
+            }
+        };
+
+        const openModal = (event) => {
+            reservationModal.classList.remove('hidden');
+            reservationModal.classList.add('flex');
+            // Pré-sélectionner le type de chambre si disponible
+            const roomType = event.currentTarget.dataset.roomType;
+            if (roomType && roomTypeSelect) {
+                roomTypeSelect.value = roomType;
+            }
+        };
+
+        const closeModal = () => {
+            reservationModal.classList.add('hidden');
+            reservationModal.classList.remove('flex');
+        };
+
+        // Charger les types de chambres au chargement de la page
+        populateRoomTypes();
+
+        bookButtons.forEach(btn => btn.addEventListener('click', (e) => openModal(e)));
+        closeReservationModalBtn.addEventListener('click', closeModal);
+
+        // --- Validation des dates pour la réservation ---
+        if (arrivalDateInput && departureDateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            arrivalDateInput.setAttribute('min', today);
+
+            arrivalDateInput.addEventListener('change', () => {
+                // La date de départ doit être au moins le jour de l'arrivée
+                if (arrivalDateInput.value) {
+                    departureDateInput.setAttribute('min', arrivalDateInput.value);
+                    // Si la date de départ actuelle est avant la nouvelle date d'arrivée, on la réinitialise
+                    if (departureDateInput.value < arrivalDateInput.value) {
+                        departureDateInput.value = arrivalDateInput.value;
+                    }
+                }
+            });
+        }
+
+        // --- Soumission du formulaire de réservation ---
+        const reservationForm = document.getElementById('reservation-form');
+        if (reservationForm) {
+            reservationForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Empêche l'envoi classique du formulaire
+
+                // Validation de la date côté client avant envoi
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const arrivalDate = new Date(arrivalDateInput.value);
+
+                if (arrivalDate < today) {
+                    alert("La date d'arrivée ne peut pas être dans le passé. Veuillez choisir une date valide.");
+                    return; // Bloque l'envoi
+                }
+
+                const formData = new FormData(reservationForm);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+                    const response = await fetch('/api/reservations', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                    const result = await response.json();
+
+                    if (!response.ok) throw new Error(result.error || 'Une erreur est survenue.');
+
+                    alert(result.message); // Affiche le message de succès
+                    
+                    // On réinitialise le formulaire et on ferme la modale
+                    reservationForm.reset();
+                    roomTypeSelect.value = ""; // S'assure que le select est aussi réinitialisé
+                    closeModal();
+                } catch (error) {
+                    alert(`Erreur: ${error.message}`); // Affiche le message d'erreur
+                }
+            });
+        }
+    }
+
+    // --- Chargement des actualités pour la page d'accueil ---
+    const actualitesGrid = document.getElementById('actualites-grid');
+    // On vérifie qu'on est bien sur la page d'accueil en testant un élément parent spécifique
+    if (actualitesGrid && document.getElementById('actualites-section')) {
+        const chargerActualites = async () => {
+            try {
+                const response = await fetch('/api/articles');
+                if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+                const articles = await response.json();
+
+                if (!articles || articles.length === 0) {
+                    actualitesGrid.innerHTML = '<p class="text-center text-gray-500 col-span-full">Aucune actualité pour le moment.</p>';
+                    return;
+                }
+
+                // Afficher les 3 articles les plus récents
+                actualitesGrid.innerHTML = articles.slice(0, 3).map(article => `
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                        <div class="overflow-hidden">
+                            <a href="blog-article.html?id=${article.id}" class="block">
+                                <img src="${article.image || 'images/placeholder-image.png'}" alt="${article.titre}" class="w-full h-56 object-cover transform group-hover:scale-105 transition-transform duration-300">
+                            </a>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="text-sm text-gray-500 mb-2">
+                                <span class="font-semibold text-black">${article.categorie || 'Non classé'}</span>
+                                <span class="mx-2">|</span>
+                                <span>${new Date(article.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-black mb-3 flex-grow hover:text-gray-700 transition-colors"><a href="blog-article.html?id=${article.id}">${article.titre}</a></h3>
+                            <p class="text-gray-600 text-sm mb-6">${(article.contenu || '').substring(0, 120)}...</p> 
+                            <a href="blog-article.html?id=${article.id}" class="mt-auto text-white bg-primary-blue hover:bg-blue-800 font-bold py-2 px-4 rounded-full self-start transition-colors duration-300" aria-label="Lire la suite de l'article ${article.titre}">Lire la suite</a>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error("Erreur lors du chargement des actualités:", error);
+                actualitesGrid.innerHTML = '<p class="text-center text-red-500 col-span-full">Impossible de charger les actualités.</p>';
+            }
+        };
+        chargerActualites();
+    }
+
+    // --- Formulaire Newsletter ---
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletter-email');
+            const messageP = document.getElementById('newsletter-message');
+            const email = emailInput.value;
+
+            try {
+                const response = await fetch('/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await response.json();
+                messageP.textContent = data.message;
+                messageP.className = 'mb-8 text-green-300 max-w-xl mx-auto'; // Remplacer les classes pour assurer la couleur
+                localStorage.setItem('refreshAdminData', 'subscribers_' + Date.now());
+                emailInput.value = '';
+            } catch (error) {
+                messageP.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+                messageP.className = 'mb-8 text-red-500 max-w-xl mx-auto'; // Remplacer les classes pour assurer la couleur
+            }
+        });
+    }
+
+    // --- Initialisation des carrousels (Slick) ---
+    // Note: jQuery est nécessaire pour Slick. Assurez-vous qu'il est chargé avant ce script.
+    if (typeof $ !== 'undefined' && $.fn.slick) {
+        // Carrousel des partenaires
+        const partnerCarousel = $('.partner-carousel');
+        if (partnerCarousel.length) {
+            partnerCarousel.slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 0,
+                speed: 5000,
+                cssEase: 'linear',
+                infinite: true,
+                arrows: false,
+                dots: false,
+                pauseOnHover: true,
+                responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                }]
+            });
+        }
+    }
+
+    // --- Gestion du bouton "Retour en haut" ---
+    const backToTopButton = document.getElementById('back-to-top');
+
+    if (backToTopButton) {
+        // Afficher le bouton si on a défilé de plus de 300px
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+
+        // Action au clic : remonter en haut de la page avec un défilement doux
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
 });

@@ -63,116 +63,52 @@
     <!-- Navigation -->
     <div id="header-placeholder"></div>
 
-    <!-- Hero Section Formation -->
-    <section class="hero-section relative flex items-center justify-center bg-cover bg-center text-white overflow-hidden" style="background-image: url('images/IMG-20250910-WA0081.jpg');">
-        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-        <div class="container mx-auto px-4 z-10 text-center animate-fade-in-up">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4" data-translate-key="training_hero_title">Formation Professionnelle</h1>
-            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto" data-translate-key="training_hero_subtitle">
-                Développez vos compétences dans l'hôtellerie et la restauration avec nos experts
-            </p>
-            <a href="#programmes" class="bg-primary-blue hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold inline-block transition-colors duration-300" data-translate-key="training_hero_button">
-                Découvrir nos programmes
-            </a>
-        </div>
-    </section>
-
+   
     <!-- Programmes de formation -->
     <section id="programmes" class="py-16 px-4 scroll-reveal">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-12" data-translate-key="training_programs_title">Nos Programmes de Formation</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
                 <!-- Formation Service en Salle -->
                 <div class="formation-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-2">
                     <div class="relative">
-                        <img src="images/E.jpeg" alt="Service en Salle" class="w-full h-48 object-cover">
+                        <img src="https://images.pexels.com/photos/3225528/pexels-photo-3225528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Service en tourisme" class="w-full h-48 object-cover">
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2" data-translate-key="training_program1_title">Service en tourisme</h3>
-                        <p class="text-gray-600 mb-4" data-translate-key="training_program1_desc">Maîtrisez l'art du service et de l'accueil client.</p>
-                        <div class="mb-4">
-                            <div class="flex items-center mb-2">
-                                <div class="avantage-icon"><i class="fas fa-clock"></i></div>
-                                <span data-translate-key="training_program_duration_6w">6 semaines</span>
-                            </div>
-                            <div class="flex items-center mb-2">
-                                <div class="avantage-icon"><i class="fas fa-graduation-cap"></i></div>
-                                <span data-translate-key="training_program_certif">Certification reconnue</span>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="avantage-icon"><i class="fas fa-users"></i></div>
-                                <span data-translate-key="training_program_learners_12">Max. 12 participants</span>
-                            </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold mb-4 flex items-center justify-center gap-3" data-translate-key="training_program1_title">
+                            <i class="fas fa-concierge-bell"></i>
+                            <span>Service en tourisme</span>
+                        </h3>
+                        <p class="text-gray-600" data-translate-key="training_program1_desc">Développez des compétences de classe mondiale en accueil et service client. Apprenez à créer des expériences mémorables pour les touristes et à gérer les situations avec professionnalisme.</p>
+                        <div class="mt-4 mb-6 text-sm text-gray-700">
+                            <p class="font-bold text-black">À qui s'adresse cette formation ?</p>
+                            <p class="mt-1">Idéale pour les débutants passionnés par le contact humain et les professionnels souhaitant perfectionner leur service client.</p>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-2xl font-bold text-black">150,000 FCFA</p>
-                            <button onclick="openInscriptionModal('Service en Salle')" class="bg-primary-blue hover:bg-red-700 text-white px-4 py-2 rounded font-semibold text-sm" data-translate-key="training_program_signup">
-                                S'inscrire
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Formation Cuisine -->
-                <div class="formation-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-2">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Art Culinaire" class="w-full h-48 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Art Culinaire</h3>
-                        <p class="text-gray-600 mb-4">Apprenez les techniques de cuisine professionnelle.</p>
-                        <div class="mb-4">
-                            <div class="flex items-center mb-2">
-                                <div class="avantage-icon"><i class="fas fa-clock"></i></div>
-                                <span>8 semaines</span>
-                            </div>
-                            <div class="flex items-center mb-2">
-                                <div class="avantage-icon"><i class="fas fa-graduation-cap"></i></div>
-                                <span>Diplôme professionnel</span>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="avantage-icon"><i class="fas fa-users"></i></div>
-                                <span>Max. 10 participants</span>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-2xl font-bold text-black">200,000 FCFA</p>
-                            <button onclick="openInscriptionModal('Art Culinaire')" class="bg-primary-blue hover:bg-red-700 text-white px-4 py-2 rounded font-semibold text-sm">
-                                S'inscrire
-                            </button>
-                        </div>
+                        <button onclick="openInscriptionModal('Service en tourisme')" class="bg-primary-blue hover:bg-red-700 text-white px-4 py-2 rounded font-semibold text-sm" data-translate-key="training_program_signup">
+                            S'inscrire
+                        </button>
                     </div>
                 </div>
                 
                 <!-- Formation Gestion Hôtelière -->
                 <div class="formation-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-2">
                     <div class="relative">
-                        <img src="images/rest.jpeg" alt="Gestion Hôtelière" class="w-full h-48 object-cover">
+                        <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Gestion Hôtelière" class="w-full h-48 object-cover">
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Gestion Hôtelière</h3>
-                        <p class="text-gray-600 mb-4">Formation complète en management hôtelier.</p>
-                        <div class="mb-4">
-                            <div class="flex items-center mb-2">
-                                <div class="avantage-icon"><i class="fas fa-clock"></i></div>
-                                <span>12 semaines</span>
-                            </div>
-                            <div class="flex items-center mb-2">
-                                <div class="avantage-icon"><i class="fas fa-graduation-cap"></i></div>
-                                <span>Certificat de gestion</span>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="avantage-icon"><i class="fas fa-users"></i></div>
-                                <span>Max. 15 participants</span>
-                            </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold mb-4 flex items-center justify-center gap-3">
+                            <i class="fas fa-hotel"></i>
+                            <span>Gestion Hôtelière</span>
+                        </h3>
+                        <p class="text-gray-600">Devenez un leader en maîtrisant la gestion des opérations, des finances, du marketing et des équipes. Une formation complète pour diriger un établissement hôtelier avec succès.</p>
+                        <div class="mt-4 mb-6 text-sm text-gray-700">
+                            <p class="font-bold text-black">À qui s'adresse cette formation ?</p>
+                            <p class="mt-1">Destinée aux futurs managers, superviseurs et à toute personne visant un poste de direction dans le secteur hôtelier.</p>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-2xl font-bold text-black">300,000 FCFA</p>
-                            <button onclick="openInscriptionModal('Gestion Hôtelière')" class="bg-primary-blue hover:bg-red-700 text-white px-4 py-2 rounded font-semibold text-sm">
-                                S'inscrire
-                            </button>
-                        </div>
+                        <button onclick="openInscriptionModal('Gestion Hôtelière')" class="bg-primary-blue hover:bg-red-700 text-white px-4 py-2 rounded font-semibold text-sm">
+                            S'inscrire
+                        </button>
                     </div>
                 </div>
             </div>
@@ -339,117 +275,7 @@
             }
         });
 
-        async function chargerTemoignages(categorie = '') {
-            try {
-                let url = '/api/testimonials';
-                if (categorie) {
-                    url += `?category=${categorie}`;
-                }
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Erreur de chargement des témoignages.');
-                const testimonials = await response.json();
-
-                const sliderWrapper = document.getElementById('testimonial-slider-wrapper');
-                const sliderContent = document.getElementById('testimonial-slider-content');
-                const sliderNav = document.getElementById('testimonial-slider-nav');
-
-                if (!testimonials || testimonials.length === 0) {
-                    document.getElementById('testimonial-slider-wrapper').innerHTML = '<p class="text-center text-white/70">Aucun témoignage pour le moment.</p>';
-                    document.getElementById('testimonial-slider-wrapper').classList.remove('hidden');
-                    return;
-                }
-
-                sliderContent.innerHTML = testimonials.map(t => `
-                    <div class="testimonial-item">
-                        <p>"${t.quote}"</p>
-                        <div class="author-info">
-                            <span class="author-name">${t.name}</span>
-                        </div>
-                    </div>
-                `).join('');
-
-                sliderNav.innerHTML = testimonials.map(t => `
-                    <div>
-                        <img src="${t.image || 'images/placeholder-avatar.png'}" alt="${t.name}" class="author-image">
-                    </div>
-                `).join('');
-
-                $('#testimonial-slider-content').slick({
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    arrows: false,
-                    fade: true,
-                    asNavFor: '#testimonial-slider-nav',
-                    autoplay: true,
-                    autoplaySpeed: 5000, // Défilement automatique toutes les 5 secondes
-                    pauseOnHover: true // Met en pause le défilement au survol de la souris
-                });
-                $('#testimonial-slider-nav').slick({
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    asNavFor: '#testimonial-slider-content',
-                    dots: false,
-                    centerMode: true,
-                    focusOnSelect: true,
-                    arrows: false
-                });
-                document.getElementById('testimonial-slider-wrapper').classList.remove('hidden');
-            } catch (error) {
-                console.error(error);
-                const sliderWrapper = document.getElementById('testimonial-slider-wrapper');
-                sliderWrapper.innerHTML = `<p class="text-center text-yellow-400">${error.message}</p>`;
-                sliderWrapper.classList.remove('hidden');
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => chargerTemoignages('Formation')); // Correction de l'appel
-
-        document.addEventListener('DOMContentLoaded', () => { // Correction: DOMContentLoaded au lieu de DOMContentLoaded
-            const showFormBtn = document.getElementById('show-testimonial-form-btn');
-            const testimonialModal = document.getElementById('testimonial-modal');
-            const closeBtn = document.getElementById('close-testimonial-modal-btn');
-
-            if (showFormBtn && testimonialModal && closeBtn) {
-                showFormBtn.addEventListener('click', () => {
-                    testimonialModal.classList.remove('hidden');
-                    testimonialModal.classList.add('flex');
-                });
-                closeBtn.addEventListener('click', () => {
-                    testimonialModal.classList.add('hidden');
-                    testimonialModal.classList.remove('flex');
-                });
-            }
-        });
-
-        document.getElementById('public-testimonial-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const messageDiv = document.getElementById('testimonial-form-message');
-            const formData = {
-                name: document.getElementById('public-testimonial-name').value,
-                category: document.getElementById('public-testimonial-category').value,
-                quote: document.getElementById('public-testimonial-quote').value,
-                rating: document.querySelector('input[name="rating"]:checked').value
-            };
-
-            try {
-                const response = await fetch('/api/testimonials', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-                const result = await response.json();
-                if (!response.ok) throw new Error(result.error || 'Une erreur est survenue.');
-                
-                messageDiv.textContent = result.message;
-                messageDiv.className = 'bg-green-100 text-green-800 p-3 rounded-md text-center font-bold';
-                messageDiv.classList.remove('hidden');
-                document.getElementById('public-testimonial-form').reset();
-            } catch (error) {
-                messageDiv.textContent = `Erreur: ${error.message}`;
-                messageDiv.className = 'bg-red-100 text-red-800 p-3 rounded-md text-center font-bold';
-                messageDiv.classList.remove('hidden');
-            }
-        });
     </script>
 </body>
 </html>
