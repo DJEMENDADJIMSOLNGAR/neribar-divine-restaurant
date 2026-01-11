@@ -51,18 +51,23 @@
 
 
 *, ::before, ::after {
+/* Style de la barre de navigation principale */
+header.z-50, header.bg-white {
+    background-color: #070707 !important; /* Orange */
+    transition: background-color 0.3s ease;
+}
 +/* Style des liens de navigation */
 header nav a, #mobileMenu a, #desktop-menu-links a {
     font-size: 1.125rem; /* text-lg, environ 18px */
     font-weight: 500; /* medium */
-    color: #D4AF37; /* Or */
+    color: white !important; /* Blanc */
     transition: color 0.3s ease;
     padding: 0.5rem 1rem;
     border-radius: 4px;
 }
 
 header nav a:hover, #mobileMenu a:hover, #desktop-menu-links a:hover {
-    color: #ffe766; /* Or plus clair */
+    color: #f0f0f0 !important; /* Blanc légèrement grisé pour le survol */
 }
   --tw-border-spacing-x: 0;
   --tw-border-spacing-x: 0;
@@ -121,6 +126,7 @@ header nav a:hover, #mobileMenu a:hover, #desktop-menu-links a:hover {
   /* It's recommended to let Tailwind handle these through its build process. */
   /* If you need to extend or override Tailwind, do so in tailwind.config.js or by using @apply. */
 }
+
 
 
 /*
@@ -634,28 +640,29 @@ video {
   }
 }
 
-.btn-primary, .bg-primary-blue, .bg-secondary-red {
-  color: rgb(223 193 24 / var(--tw-text-opacity, 1)) !important;
-  background-color: #000;
+/* Style unifié pour TOUS les boutons et liens stylisés comme des boutons */
+.btn-primary,
+.btn-cta,
+.bg-primary-blue,
+.bg-secondary-red,
+a[class*="bg-secondary-red"],
+button[class*="bg-secondary-red"],
+a[class*="bg-primary-blue"] {
+  background-color: white !important;
+  color: #ff8a5e !important;
+  border: 1px solid #ff8a5e !important;
   padding: 0.75rem 1.5rem;
   font-weight: 700;
-  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
- --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  transition-property: all;
-  transition-duration: 200ms;
-}
-.home button {
-   --tw-text-opacity: 1;
-  color: rgb(223 193 24 / var(--tw-text-opacity, 1)) !important; /* Or */
-  color: #D4AF37; /* Metallic Gold */
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.btn-primary:hover, .bg-primary-blue:hover, .bg-secondary-red:hover, .hover\:bg-secondary-red:hover, .hover\:bg-red-700:hover {
-  background-color: #333; /* Un noir un peu plus clair pour le survol */
+/* Effet de survol pour les boutons */
+.btn-primary:hover, .btn-cta:hover, .bg-primary-blue:hover, .bg-secondary-red:hover, a[class*="bg-secondary-red"]:hover, button[class*="bg-secondary-red"]:hover, a[class*="bg-primary-blue"]:hover {
+  background-color: #ff8a5e !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
-
 
 /* Styles de formulaire améliorés */
 .form-input {
@@ -666,7 +673,7 @@ video {
     width: 100%;
 }
 .form-input:focus {
-    border-color: #B91C1C; /* Rouge Brique */
+    border-color: #ff8a5e; /* Rouge Brique */
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.2);
 }
@@ -679,11 +686,11 @@ textarea::placeholder {
 
 /* Styles pour la validation des formulaires */
 .form-input.error {
-    border-color: #ef4444; /* red-500 */
+    border-color: #ff8a5e; /* red-500 */
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
 }
 .error-message {
-    color: #ef4444; /* red-500 */
+    color: #ff8a5e; /* red-500 */
     font-size: 0.875rem; /* text-sm */
     margin-top: 0.25rem; /* mt-1 */
     display: none; /* Hidden by default */
@@ -721,16 +728,6 @@ textarea::placeholder {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
-}
-
-.btn-primary:hover, .btn-cta:hover {
-  --tw-translate-y: -1px;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); 
-  --tw-bg-opacity: 1;
-  background-color: #333; /* Un noir un peu plus clair pour le survol */
-  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .fixed {
@@ -1446,16 +1443,12 @@ textarea::placeholder {
 }
 
 .text-green-300 {
-    color: #D4AF37
+    color: #e5612f;
 }
 
 .text-primary-blue {
   --tw-text-opacity: 1;
  color: rgb(185 28 28 / var(--tw-text-opacity, 1)); /* Rouge Brique */
-}
-
-.text-red-300{
-  /* This class seems to be intended for a specific color, but is overridden. */
 }
 
 .text-red-500 {
@@ -1465,8 +1458,8 @@ textarea::placeholder {
 
 .text-secondary-red {
   --tw-text-opacity: 1;
-  color: rgb(223 193 24 / var(--tw-text-opacity, 1)); /* Or */
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  color: rgb(229 97 47 / var(--tw-text-opacity, 1)); /* Orange */
+  /* color: rgb(255 255 255 / var(--tw-text-opacity, 1)); */ /* Commenté pour appliquer la nouvelle couleur */
 }
 
 .text-yellow-600 {
@@ -1594,7 +1587,7 @@ textarea::placeholder {
 
 .hover\:bg-blue-800:hover {
   --tw-bg-opacity: 1;
-  background-color: #D4AF37;
+  background-color: #e5612f;
 }
 
 .hover\:bg-gray-100:hover {
@@ -1604,7 +1597,7 @@ textarea::placeholder {
 
 .hover\:text-blue-800:hover {
    --tw-text-opacity: 1;
-  color: #dfc118;
+  color: #e5612f;
 }
 
 .hover\:text-gray-800:hover {
@@ -1679,13 +1672,13 @@ textarea::placeholder {
 footer h1,
 /* Style pour le pied de page */
 .main-footer {
-   background-color: #000000; /* Noir */
-    color: rgb(255 215 0 / var(--tw-text-opacity, 1));
+    background-color: #000000; /* Noir */
+    color: #FFFFFF; /* Blanc */
 }
 
 /* Liens dans le pied de page */
 .main-footer a {
-    color: #a0aec0; /* Gris clair pour les liens */
+    color: white; /* Gris clair pour les liens, conservé pour le contraste */
     transition: color 0.3s ease-in-out;
 }
 
@@ -1703,10 +1696,11 @@ footer h1,
 }
 
 i {
-    color: #dfc118 !important;
+    background-color: white !important;
+    color: #e5612f !important;
 }
 svg {
-    fill: #dfc118 !important;
+    fill: #e5612f !important;
 }
 
 /* Met les titres des sections hero en blanc */
@@ -1792,7 +1786,7 @@ svg {
   position: absolute;
     width: 50px;
   height: 50px;
-  right: -25px;  background-color: #dfc118; /* Fond #dfc118 */
+  right: -25px;  background-color: #e5612f; /* Fond orange */
   color: white;
   top: 15px;
   border-radius: 50%;
@@ -1802,7 +1796,7 @@ svg {
   justify-content: center;
   font-size: 1.2rem;
   border: 4px solid #f3f4f6;
-  color: #dfc118 !important;
+  color: #e5612f !important;
 }
 .timeline-item:nth-child(even) .timeline-icon {
   left: -25px;
@@ -2012,12 +2006,12 @@ svg {
     flex-grow: 1; /* Permet à la bulle de grandir pour occuper l'espace */
     max-width: 600px;
     margin-top: 1rem; /* Espace pour l'image au-dessus */
-    border: 1px solid #dfc118; /* Bordure dorée */
+    border: 1px solid #e5612f; /* Bordure orange */
     backdrop-filter: blur(5px); /* Effet de flou pour le fond */
 }
 
 .testimonial-bubble::before { /* La petite flèche au-dessus de la bulle */
-    content: '';    border-bottom: 10px solid #dfc118; /* Or */
+    content: '';    border-bottom: 10px solid #e5612f; /* Orange */
     position: absolute;
     top: -11px; /* Ajustement pour la bordure */
    left: 50%;
@@ -2118,7 +2112,7 @@ svg {
 .author-image { /* Image principale de l'auteur */
   width: 72px;
   height: 72px;
-  border-radius: 50%;  border: 3px solid #FFD700; /* Bordure dorée */
+  border-radius: 50%;  border: 3px solid #e5612f; /* Bordure orange */
   object-fit: cover;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
@@ -2201,7 +2195,7 @@ svg {
 .star-rating input[type="radio"]:checked ~ label,
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-  color: #f59e0b; /* amber-500 */
+  color: #e5612f; /* amber-500 */
 }
 
 
@@ -2318,10 +2312,6 @@ svg {
 .btn-cta {
     display: inline-flex; /* Pour aligner l'icône et le texte */
     align-items: center;
-    gap: 0.75rem; /* Espace entre l'icône et le texte */
-    background-color: black; /* Noir */
-    --tw-text-opacity: 1;
-    color: rgb(255 215 0 / var(--tw-text-opacity, 1)) !important; /* Or */
     font-weight: 700; /* Police plus grasse */
     border-radius: 50px; /* Bouton plus arrondi */
     padding: 0.8rem 2rem; /* Ajustement du padding */
@@ -2379,4 +2369,21 @@ svg {
 /* Espacement des logos partenaires */
 .partner-logo-container {
    grid-gap: 150px; /* Ajustez cette valeur selon l'espacement désiré */
+}
+
+.logo h1 {
+  font-size: 2.5rem;
+  color: var(--text-color-white);
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+}
+
+.logo a {
+  display: flex;
+  text-decoration: none;
+  color: var(--text-color-white);
+}
+
+.logo a i {
+  font-size: 40px;
 }
