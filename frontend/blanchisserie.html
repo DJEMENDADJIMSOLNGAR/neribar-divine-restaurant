@@ -402,17 +402,7 @@
                 document.getElementById('testimonial-slider-wrapper').innerHTML = `<p class="text-center text-yellow-400">${error.message}</p>`;
             }
         }
-        // Menu mobile functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const burgerMenu = document.getElementById('menuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            
-            if (burgerMenu && mobileMenu) {
-                burgerMenu.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-
             // FAQ Accordion
             const faqItems = document.querySelectorAll('.faq-item');
             faqItems.forEach(item => {

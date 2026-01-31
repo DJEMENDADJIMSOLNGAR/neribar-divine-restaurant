@@ -57,12 +57,116 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mobile menu toggle
             const menuBtn = mainHeader.querySelector('#menuBtn');
             const mobileMenu = mainHeader.querySelector('#mobileMenu');
-           if (menuBtn && mobileMenu) {
-                menuBtn.addEventListener('click', () => {
-                    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-                    menuBtn.setAttribute('aria-expanded', !isExpanded);
+
+            // Clone desktop links into mobile menu if mobile menu is empty
+            try {
+                const desktopLinks = mainHeader.querySelector('#desktop-menu-links');
+                if (desktopLinks && mobileMenu && mobileMenu.children.length === 0) {
+                    const cloned = desktopLinks.cloneNode(true);
+                    cloned.id = 'mobile-cloned-links';
+                    // Remove desktop-only utility classes and adapt to vertical mobile layout
+                    cloned.classList.remove('hidden', 'md:flex', 'space-x-6');
+                    cloned.classList.add('flex', 'flex-col', 'space-y-2');
+                    // Ensure anchors are touch-friendly and visible on dark mobile background
+                    cloned.querySelectorAll('a').forEach(a => {
+                        a.classList.add('py-2', 'px-2', 'text-white', 'block');
+                        a.setAttribute('role', 'menuitem');
+                    });
+                    mobileMenu.appendChild(cloned);
+                }
+            } catch (err) {
+                console.warn('Erreur lors du clonage des liens vers le menu mobile', err);
+            }
+
+            if (menuBtn && mobileMenu) {
+                // Toggle menu
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     mobileMenu.classList.toggle('hidden');
+                    menuBtn.setAttribute('aria-expanded', (!mobileMenu.classList.contains('hidden')).toString());
                 });
+
+                // Close when clicking a link inside mobile menu
+                mobileMenu.addEventListener('click', (e) => {
+                    const a = e.target.closest('a');
+                    if (a) {
+                        mobileMenu.classList.add('hidden');
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // --- Init mobile menu toggles (works even if header is injected) ---
+                function initializeMobileMenus() {
+                    document.querySelectorAll('#main-header').forEach(header => {
+                        const menuBtn = header.querySelector('#menuBtn');
+                        const mobileMenu = header.querySelector('#mobileMenu');
+                        if (!menuBtn || !mobileMenu) return;
+
+                        // ensure correct aria state
+                        menuBtn.setAttribute('aria-expanded', (!mobileMenu.classList.contains('hidden')).toString());
+                        menuBtn.setAttribute('aria-controls', 'mobileMenu');
+
+                        // Toggle handler
+                        menuBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const wasHidden = mobileMenu.classList.contains('hidden');
+                            mobileMenu.classList.toggle('hidden');
+                            const nowOpen = wasHidden;
+                            menuBtn.setAttribute('aria-expanded', nowOpen.toString());
+                            document.body.classList.toggle('no-scroll', nowOpen);
+                            if (nowOpen) {
+                                // focus first actionable element in menu for accessibility
+                                const first = mobileMenu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+                                if (first) first.focus();
+                            } else {
+                                menuBtn.focus();
+                            }
+                        });
+
+                        // Close on click of a link inside the mobile menu
+                        mobileMenu.addEventListener('click', (e) => {
+                            const a = e.target.closest('a');
+                            if (a) {
+                                mobileMenu.classList.add('hidden');
+                                menuBtn.setAttribute('aria-expanded', 'false');
+                                document.body.classList.remove('no-scroll');
+                            }
+                        });
+                    });
+
+                    // Global: close open mobile menus when clicking outside or pressing ESC
+                    document.addEventListener('click', (e) => {
+                        document.querySelectorAll('#main-header').forEach(header => {
+                            const mobileMenu = header.querySelector('#mobileMenu');
+                            const menuBtn = header.querySelector('#menuBtn');
+                            if (!mobileMenu || !menuBtn) return;
+                            if (!mobileMenu.classList.contains('hidden') && !header.contains(e.target)) {
+                                mobileMenu.classList.add('hidden');
+                                menuBtn.setAttribute('aria-expanded', 'false');
+                                document.body.classList.remove('no-scroll');
+                            }
+                        });
+                    });
+
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape' || e.key === 'Esc') {
+                            document.querySelectorAll('#main-header').forEach(header => {
+                                const mobileMenu = header.querySelector('#mobileMenu');
+                                const menuBtn = header.querySelector('#menuBtn');
+                                if (!mobileMenu || !menuBtn) return;
+                                if (!mobileMenu.classList.contains('hidden')) {
+                                    mobileMenu.classList.add('hidden');
+                                    menuBtn.setAttribute('aria-expanded', 'false');
+                                    document.body.classList.remove('no-scroll');
+                                    menuBtn.focus();
+                                }
+                            });
+                        }
+                    });
+                }
+
+                // run after header injection
+                initializeMobileMenus();
             }
 
             // --- Navbar scroll effect ---

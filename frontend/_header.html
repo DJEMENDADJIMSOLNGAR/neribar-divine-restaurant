@@ -1,15 +1,14 @@
 <header id="main-header" class="p-4 bg-white">
     <div class="container mx-auto flex justify-between items-center">
         <a href="index.html">
-<div class="hidden md:flex space-x-6" id="desktop-menu-links">
             <div class="logo">
-            <i class="fa fa-utensils me-3"></i>
-            <h1 class="mb-0">KemdeHolo</h1>
-          </a>
-        </div>     
+                <i class="fa fa-utensils me-3"></i>
+                <h1 class="mb-0">KemdeHolo</h1>
+            </div>
+        </a>
 
         <!-- Menu desktop -->
-        
+        <div class="hidden md:flex space-x-6" id="desktop-menu-links">
             <a href="index.html" class="hover:text-[#dfc118]" style="color:#0c0c0c;" data-translate-key="nav_home">Accueil</a>
             <a href="a-propos.html" class="hover:text-[#dfc118]" style="color:#070707;" data-translate-key="nav_about">À Propos</a>
             <a href="restaurant.html" class="hover:text-[#dfc118]" style="color:#070707;" data-translate-key="nav_restaurant">Restaurant</a>
@@ -22,9 +21,9 @@
 
         <!-- Menu mobile -->
         <div class="md:hidden">
-            <button id="menuBtn" class="text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            <button id="menuBtn" class="text-white" aria-label="Ouvrir le menu" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
         </div>

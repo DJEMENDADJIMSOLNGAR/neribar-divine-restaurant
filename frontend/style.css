@@ -2373,17 +2373,19 @@ svg {
 
 .logo h1 {
   font-size: 2.5rem;
-  color: var(--text-color-white);
+  color: #ffffff;
   font-family: "Nunito", sans-serif;
   font-weight: 800;
 }
 
-.logo a {
+.logo {
   display: flex;
-  text-decoration: none;
-  color: var(--text-color-white);
+  align-items: center;
+  color: #ffffff;
 }
 
-.logo a i {
+.logo i {
   font-size: 40px;
+  color: #ffffff !important;
+  background-color: transparent !important;
 }
